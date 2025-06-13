@@ -186,7 +186,7 @@ async function sendTrackingConfirmationEmail(userEmail: string, product: any, sc
   }
 
   const emailContent = {
-    from: 'PriceTracker <noreply@yourdomain.com>', // Replace with your verified domain
+    from: 'PriceTracker <noreply@resend.dev>', // Using resend.dev domain for testing
     to: [userEmail],
     subject: `✅ Now Tracking: ${scrapedData.title}`,
     html: `
