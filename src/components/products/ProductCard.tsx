@@ -14,11 +14,14 @@ import {
   Bell,
   Palette,
   AlertTriangle,
-  Package
+  Package,
+  BarChart3,
+  Eye
 } from 'lucide-react';
 import { Product } from '@/types';
 import { formatDistanceToNow } from 'date-fns';
 import { PriceAlertDialog } from './PriceAlertDialog';
+import { ProductDetailsDialog } from './ProductDetailsDialog';
 
 interface ProductCardProps {
   product: Product;
@@ -28,6 +31,7 @@ interface ProductCardProps {
 
 export function ProductCard({ product, onDelete, onRefresh }: ProductCardProps) {
   const [showPriceAlert, setShowPriceAlert] = useState(false);
+  const [showProductDetails, setShowProductDetails] = useState(false);
   
   const discountPercentage = parseFloat(product.discount.replace('%', ''));
   const savings = product.mrp - product.sale_price;
@@ -206,10 +210,10 @@ export function ProductCard({ product, onDelete, onRefresh }: ProductCardProps) 
               variant="outline"
               size="sm"
               className="flex-1"
-              onClick={() => window.open(product.url, '_blank')}
+              onClick={() => setShowProductDetails(true)}
             >
-              <ExternalLink className="w-4 h-4 mr-2" />
-              View Product
+              <Eye className="w-4 h-4 mr-2" />
+              View Details
             </Button>
             {!product.is_out_of_stock && (
               <Button
@@ -242,6 +246,13 @@ export function ProductCard({ product, onDelete, onRefresh }: ProductCardProps) 
           </div>
         </CardContent>
       </Card>
+
+      {/* Dialogs */}
+      <ProductDetailsDialog
+        product={product}
+        open={showProductDetails}
+        onOpenChange={setShowProductDetails}
+      />
 
       {!product.is_out_of_stock && (
         <PriceAlertDialog
