@@ -246,7 +246,7 @@ export function PriceHistoryChart({ product }: PriceHistoryChartProps) {
                   axisLine={false}
                 />
                 <Tooltip 
-                  formatter={[formatTooltipValue, 'Price']}
+                  formatter={(value) => [formatTooltipValue(value), 'Price']}
                   labelFormatter={(label) => {
                     const date = parseISO(label);
                     return format(date, 'MMM dd, yyyy HH:mm');
